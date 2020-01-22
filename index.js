@@ -36,7 +36,7 @@ async function run() {
   })
 
   console.log('comments', comments)
-  core.setOutput('comments', comments)
+  core.setOutput('comments', JSON.stringify(comments))
 }
 
 
