@@ -471,7 +471,7 @@ async function run() {
   const octokit = new github.GitHub(token)
 
   const files = JSON.parse(core.getInput('files'))
-  console.log('files', JSON.stringify(files, null, 2))
+  console.log('files', files)
 
   const comments = map((files || []), async (file) => {
     await octokit.pulls.createComment({
