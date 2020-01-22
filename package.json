@@ -12,9 +12,11 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.21.0"
+    "@zeit/ncc": "^0.21.0",
+    "nodemon": "^2.0.2"
   },
   "scripts": {
-    "build": "ncc build index.js"
+    "build": "ncc build index.js",
+    "dev": "ncc build index.js -w"
   }
 }
