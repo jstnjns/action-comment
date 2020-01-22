@@ -464,6 +464,8 @@ async function run() {
     return
   }
 
+  console.log(github.context)
+
   const token = core.getInput('github-token')
   const octokit = new github.GitHub(token)
 
