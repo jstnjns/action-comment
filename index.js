@@ -22,21 +22,21 @@ async function run() {
   const files = JSON.parse(core.getInput('files'))
   console.log('files', files)
 
-  const comments = map((files || []), async (file) => {
-    await octokit.pulls.createComment({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      pull_number: github.context.payload.pull_request.number,
-      body: core.getInput('comment'),
-      commit_id: GITHUB_SHA,
-      path: file.filename,
-      line: 0,
-      side: 'RIGHT',
-    })
-  })
-
-  console.log('comments', comments)
-  core.setOutput('comments', JSON.stringify(comments))
+  // const comments = map((files || []), async (file) => {
+  //   await octokit.pulls.createComment({
+  //     owner: github.context.repo.owner,
+  //     repo: github.context.repo.repo,
+  //     pull_number: github.context.payload.pull_request.number,
+  //     body: core.getInput('comment'),
+  //     commit_id: GITHUB_SHA,
+  //     path: file.filename,
+  //     line: 0,
+  //     side: 'RIGHT',
+  //   })
+  // })
+  //
+  // console.log('comments', comments)
+  // core.setOutput('comments', JSON.stringify(comments))
 }
 
 
