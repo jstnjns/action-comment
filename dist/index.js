@@ -451,7 +451,7 @@ module.exports = require("os");
 
 const core = __webpack_require__(470)
 const github = __webpack_require__(469)
-const { filter } = __webpack_require__(557)
+const { map } = __webpack_require__(557)
 
 const {
   GITHUB_SHA,
@@ -473,7 +473,7 @@ async function run() {
   const files = core.getInput('files')
   console.log('files', files)
 
-  const comments = (files || []).map(async (file) =>
+  const comments = map((files || []), async (file) =>
     octokit.pulls.createComment({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,

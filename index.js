@@ -1,6 +1,6 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
-const { filter } = require('lodash')
+const { map } = require('lodash')
 
 const {
   GITHUB_SHA,
@@ -22,7 +22,7 @@ async function run() {
   const files = core.getInput('files')
   console.log('files', files)
 
-  const comments = (files || []).map(async (file) =>
+  const comments = map((files || []), async (file) =>
     octokit.pulls.createComment({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
