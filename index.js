@@ -19,11 +19,7 @@ async function run() {
   const token = core.getInput('github-token')
   const octokit = new github.GitHub(token)
 
-  let files = core.getInput('files')
-  if (!files.length) {
-    files = [files]
-  }
-
+  const files = JSON.parse(core.getInput('files'))
   console.log('files', JSON.stringify(files, null, 2))
 
   const comments = map((files || []), async (file) => {
