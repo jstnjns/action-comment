@@ -24,7 +24,7 @@ async function run() {
     files = [files]
   }
 
-  console.log('files', files.length, files)
+  console.log('files', files.length, JSON.stringify(files, null, 2))
 
   const comments = map((files || []), async (file) => {
     await octokit.pulls.createComment({
