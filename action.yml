@@ -1,7 +1,7 @@
 name: 'Experiment Promotion Check'
 description: 'Checking to see if an experiment has been promoted to a feature'
 inputs:
-  repo-token:
+  github-token:
     description: 'GitHub Token'
     required: true
   match:
