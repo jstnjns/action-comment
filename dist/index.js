@@ -470,7 +470,11 @@ async function run() {
   const token = core.getInput('github-token')
   const octokit = new github.GitHub(token)
 
-  const files = core.getInput('files')
+  let files = core.getInput('files')
+  if (!files.length) {
+    files = [files]
+  }
+
   console.log('files', files)
 
   const comments = map((files || []), async (file) => {
@@ -480,7 +484,7 @@ async function run() {
       pull_number: github.context.payload.pull_request.number,
       body: core.getInput('comment'),
       commit_id: GITHUB_SHA,
-      path: file,
+      path: file.filename,
       line: 0,
       side: 'RIGHT',
     })
