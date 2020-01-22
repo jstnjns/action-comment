@@ -1,0 +1,16 @@
+name: 'Experiment Promotion Check'
+description: 'Checking to see if an experiment has been promoted to a feature'
+inputs:
+  repo-token:
+    description: 'GitHub Token'
+    required: true
+  match:
+    description: 'File name'
+  before:
+    description: 'File name, before'
+outputs:
+  files: # id of output
+    description: 'Files that have been promoted'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
