@@ -19,8 +19,10 @@ async function run() {
   const token = core.getInput('github-token')
   const octokit = new github.GitHub(token)
 
+  const files = core.getInput('files')
+  console.log('files', files)
 
-  const comments = core.getInput('files').map(async (file) =>
+  const comments = (files || []).map(async (file) =>
     octokit.pulls.createComment({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
