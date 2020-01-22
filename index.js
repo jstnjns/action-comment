@@ -1,6 +1,7 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
 const { filter } = require('lodash')
+const Regex = require('regex')
 
 const {
   GITHUB_SHA,
@@ -19,37 +20,20 @@ async function run() {
   const token = core.getInput('github-token')
   const octokit = new github.GitHub(token)
 
-  core.debug('Fetching PR files...')
-  const { data: files } = await octokit.pulls.listFiles({
-    owner: github.context.repo.owner,
-    repo: github.context.repo.repo,
-    pull_number: github.context.payload.pull_request.number,
-  })
 
-  core.debug('Filtering changed files...')
-  const before = core.getInput('before') ? new Regex(core.getInput('before')) : false
-  const match = core.getInput('match') ? new Regex(core.getInput('match')) : false
-
-  const matched =
-    filter(files, file => {
-      if (before && match && file.previous_filename) {
-        return
-          before.test(file.previous_filename) &&
-          match.test(file.filename)
-      }
-
-      if (before && file.previous_filename) {
-        return before.test(file.previous_filename)
-      }
-
-      if (match) {
-        return match.test(file.filename)
-      }
+  const comments = core.getInput('files').map(async (file) =>
+    octokit.pulls.createComment({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      pull_number: github.context.payload.pull_request.number,
+      body: core.getInput('comment'),
+      commit_id: GITHUB_SHA,
+      path: file,
     })
+  )
 
-  core.debug('Matched files:')
-  console.log(matched, !!matched.length)
-  core.setOutput('files', matched)
+  console.log('comments', comments)
+  core.setOutput('comments', comments)
 }
 
 
