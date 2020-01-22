@@ -1,7 +1,6 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
 const { filter } = require('lodash')
-const Regex = require('regex')
 
 const {
   GITHUB_SHA,

@@ -452,7 +452,6 @@ module.exports = require("os");
 const core = __webpack_require__(470)
 const github = __webpack_require__(469)
 const { filter } = __webpack_require__(557)
-const Regex = __webpack_require__(701)
 
 const {
   GITHUB_SHA,
@@ -25030,14 +25029,6 @@ module.exports = (promise, onFinally) => {
 		})
 	);
 };
-
-
-/***/ }),
-
-/***/ 701:
-/***/ (function() {
-
-eval("require")("regex");
 
 
 /***/ }),
