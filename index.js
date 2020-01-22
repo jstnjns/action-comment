@@ -23,7 +23,7 @@ async function run() {
   console.log('files', files)
 
   const comments = map((files || []), async (file) => {
-    await octokit.pulls.createComment({
+    const comment = {
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
@@ -32,7 +32,10 @@ async function run() {
       path: file.filename,
       line: 0,
       side: 'RIGHT',
-    })
+    }
+
+    console.log('comment', comment)
+    await octokit.pulls.createComment(comment)
   })
 
   console.log('comments', comments)
