@@ -2,6 +2,10 @@ const core = require('@actions/core')
 const github = require('@actions/github')
 const { map } = require('lodash')
 
+const {
+  GITHUB_SHA,
+} = process.env
+
 
 async function run() {
   if (!github.context.payload.pull_request) {
@@ -21,7 +25,7 @@ async function run() {
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
       body: core.getInput('comment'),
-      commit_id: github.sha,
+      commit_id: GITHUB_SHA,
       path: file.filename,
       line: 0,
       side: 'RIGHT',

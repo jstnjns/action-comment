@@ -453,6 +453,10 @@ const core = __webpack_require__(470)
 const github = __webpack_require__(469)
 const { map } = __webpack_require__(557)
 
+const {
+  GITHUB_SHA,
+} = process.env
+
 
 async function run() {
   if (!github.context.payload.pull_request) {
@@ -472,7 +476,7 @@ async function run() {
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
       body: core.getInput('comment'),
-      commit_id: github.sha,
+      commit_id: GITHUB_SHA,
       path: file.filename,
       line: 0,
       side: 'RIGHT',
