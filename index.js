@@ -30,6 +30,8 @@ async function run() {
       body: core.getInput('comment'),
       commit_id: GITHUB_SHA,
       path: file,
+      line: 0,
+      side: 'RIGHT',
     })
   })
 
