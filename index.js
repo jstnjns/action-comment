@@ -16,7 +16,7 @@ async function run() {
     return
   }
 
-  const token = core.getInput('repo-token')
+  const token = core.getInput('github-token')
   const octokit = new github.GitHub(token)
 
   core.debug('Fetching PR files...')
