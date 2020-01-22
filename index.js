@@ -19,13 +19,13 @@ async function run() {
     const comment = {
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
-      pull_number: github.context.payload.pull_request.number,
+      issue_number: github.context.payload.pull_request.number,
       body: core.getInput('comment'),
-      commit_id: github.context.payload.after,
-      path: file.filename,
-      line: 0,
-      position: 0,
-      side: 'RIGHT',
+      // commit_id: github.context.payload.after,
+      // path: file.filename,
+      // line: 0,
+      // position: 0,
+      // side: 'RIGHT',
     }
 
     console.log('comment', comment)
