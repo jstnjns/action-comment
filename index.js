@@ -24,6 +24,7 @@ async function run() {
       commit_id: github.context.payload.after,
       path: file.filename,
       line: 0,
+      position: 0,
       side: 'RIGHT',
     }
 
