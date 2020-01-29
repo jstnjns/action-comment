@@ -4,7 +4,7 @@ const { map } = require('lodash')
 
 
 const parseHash = (str) => {
-  const expression = /\b[0-9a-f]{5,40}\b/
+  const expression = /\b[0-9a-f]{5,40}\b/g
 
   return str.match(expression)
 }
