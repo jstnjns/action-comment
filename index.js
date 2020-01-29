@@ -27,6 +27,8 @@ async function run() {
 
     if (!commit) return
 
+    console.log('commit', commit)
+
     const comment = {
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
