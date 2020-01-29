@@ -25,9 +25,9 @@ async function run() {
   const comments = map((files || []), async (file) => {
     const commit = parseHash(file.blob_url)
 
-    if (!commit) return
-
     console.log('commit', commit)
+
+    if (!commit) return
 
     const comment = {
       owner: github.context.repo.owner,
