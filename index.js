@@ -37,7 +37,6 @@ async function run() {
       body: core.getInput('comment'),
       commit_id: commit,
       path: file.filename,
-      position: 0,
       side: 'LEFT',
       line: 0,
     }
