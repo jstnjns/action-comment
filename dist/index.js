@@ -489,7 +489,7 @@ async function run() {
       commit_id: commit,
       path: file.filename,
       side: 'LEFT',
-      line: 0,
+      position: 1,
     }
 
     console.log('comment', comment)
