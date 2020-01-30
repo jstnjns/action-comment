@@ -42,7 +42,11 @@ async function run() {
     }
 
     console.log('comment', comment)
-    await octokit.pulls.createComment(comment)
+    try {
+      await octokit.pulls.createComment(comment)
+    } catch(err) {
+      core.setFailed(err)
+    }
   })
 
   console.log('comments', comments)
