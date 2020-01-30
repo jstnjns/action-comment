@@ -488,9 +488,8 @@ async function run() {
       body: core.getInput('comment'),
       commit_id: commit,
       path: file.filename,
-      position: 1,
       side: 'LEFT',
-      // line: 0,
+      line: 0,
     }
 
     console.log('comment', comment)
