@@ -60,10 +60,10 @@ async function run() {
       owner: context.repo.owner,
       repo: context.repo.repo,
       pull_number: context.payload.pull_request.number,
-      commit_id: commit,
+      commit_id: context.payload.after,
       body: result,
     }
-  
+
     await github.pulls.createComment(params)
   } catch(err) {
     core.setFailed(err)
