@@ -36,7 +36,6 @@ async function run() {
       pull_number: github.context.payload.pull_request.number,
       body: core.getInput('comment'),
       commit_id: commit,
-      // path: file.filename,
     }
 
     console.log('comment', comment)
