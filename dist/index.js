@@ -510,12 +510,12 @@ async function run() {
     const params = {
       owner: context.repo.owner,
       repo: context.repo.repo,
-      pull_number: context.payload.pull_request.number,
+      issue_number: context.payload.pull_request.number,
       commit_id: context.payload.after,
       body: result,
     }
 
-    await github.pulls.createComment(params)
+    await github.issues.createComment(params)
   } catch(err) {
     core.setFailed(err)
   }
