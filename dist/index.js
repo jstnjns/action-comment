@@ -476,6 +476,8 @@ async function run() {
   const fn = new AsyncFunction('require', 'github', 'core', 'context', comment)
   const result = await fn(require, github, core, context)
 
+  console.log(context)
+
   // const files = JSON.parse(core.getInput('files'))
   // const comments = map((files || []), async (file) => {
   //   const commit = parseHash(file.blob_url)
@@ -503,15 +505,16 @@ async function run() {
   //   }
   // })
 
-  const params = {
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    pull_number: context.payload.pull_request.number,
-    commit_id: commit,
-    body: result,
-  }
 
   try {
+    const params = {
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      pull_number: context.payload.pull_request.number,
+      commit_id: commit,
+      body: result,
+    }
+  
     await github.pulls.createComment(params)
   } catch(err) {
     core.setFailed(err)
