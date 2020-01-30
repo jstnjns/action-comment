@@ -456,8 +456,9 @@ const { map } = __webpack_require__(557)
 
 const parseHash = (str) => {
   const expression = /\b[0-9a-f]{5,40}\b/g
+  const match = str.match(expression)
 
-  return str.match(expression)
+  match ? match[0] : false
 }
 
 
@@ -487,9 +488,6 @@ async function run() {
       body: core.getInput('comment'),
       commit_id: commit,
       path: file.filename,
-      // line: 0,
-      // position: 0,
-      // side: 'RIGHT',
     }
 
     console.log('comment', comment)
