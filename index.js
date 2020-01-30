@@ -25,34 +25,6 @@ async function run() {
   const fn = new AsyncFunction('require', 'github', 'core', 'context', comment)
   const result = await fn(require, github, core, context)
 
-  // const files = JSON.parse(core.getInput('files'))
-  // const comments = map((files || []), async (file) => {
-  //   const commit = parseHash(file.blob_url)
-  //
-  //   console.log('commit', commit)
-  //
-  //   if (!commit) return
-  //
-  //   const params = {
-  //     owner: context.repo.owner,
-  //     repo: context.repo.repo,
-  //     pull_number: context.payload.pull_request.number,
-  //     body: result,
-  //     commit_id: commit,
-  //     path: file.filename,
-  //     side: 'LEFT',
-  //     position: 1,
-  //   }
-  //
-  //   console.log('comment', params)
-  //   try {
-  //     await github.pulls.createComment(params)
-  //   } catch(err) {
-  //     core.setFailed(err)
-  //   }
-  // })
-
-
   try {
     const params = {
       owner: context.repo.owner,
@@ -62,15 +34,12 @@ async function run() {
       body: result,
     }
 
-    await github.issues.createComment(params)
+    const comment = await github.issues.createComment(params)
+    core.setOutput('comment', JSON.stringify(comment))
   } catch(err) {
     core.setFailed(err)
   }
-
-  // console.log('comments', comments)
-  // core.setOutput('comments', JSON.stringify(comments))
 }
-
 
 
 run()
