@@ -33,14 +33,14 @@ async function run() {
     const comment = {
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
-      pull_number: github.context.payload.pull_request.number,
+      issue_number: github.context.payload.pull_request.number,
       body: core.getInput('comment'),
       commit_id: commit,
     }
 
     console.log('comment', comment)
     try {
-      await octokit.pulls.createComment(comment)
+      await octokit.issues.createComment(comment)
     } catch(err) {
       core.setFailed(err)
     }
