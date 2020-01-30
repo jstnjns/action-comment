@@ -450,7 +450,7 @@ module.exports = require("os");
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470)
-const github = __webpack_require__(469)
+const { context, GitHub } = __webpack_require__(469)
 const { map } = __webpack_require__(557)
 
 
@@ -463,45 +463,62 @@ const parseHash = (str) => {
 
 
 async function run() {
-  if (!github.context.payload.pull_request) {
+  if (!context.payload.pull_request) {
     core.error('This action is only valid on Pull Requests')
     return
   }
 
   const token = core.getInput('github-token')
-  const octokit = new github.GitHub(token)
+  const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor
+  const github = new GitHub(token)
 
-  const files = JSON.parse(core.getInput('files'))
-  console.log('files', files)
+  const comment = core.getInput('comment', { required: true })
+  const fn = new AsyncFunction('require', 'github', 'core', 'context', comment)
+  const result = await fn(require, github, core, context)
 
-  const comments = map((files || []), async (file) => {
-    const commit = parseHash(file.blob_url)
+  // const files = JSON.parse(core.getInput('files'))
+  // const comments = map((files || []), async (file) => {
+  //   const commit = parseHash(file.blob_url)
+  //
+  //   console.log('commit', commit)
+  //
+  //   if (!commit) return
+  //
+  //   const params = {
+  //     owner: context.repo.owner,
+  //     repo: context.repo.repo,
+  //     pull_number: context.payload.pull_request.number,
+  //     body: result,
+  //     commit_id: commit,
+  //     path: file.filename,
+  //     side: 'LEFT',
+  //     position: 1,
+  //   }
+  //
+  //   console.log('comment', params)
+  //   try {
+  //     await github.pulls.createComment(params)
+  //   } catch(err) {
+  //     core.setFailed(err)
+  //   }
+  // })
 
-    console.log('commit', commit)
+  const params = {
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    pull_number: context.payload.pull_request.number,
+    commit_id: commit,
+    body: result,
+  }
 
-    if (!commit) return
+  try {
+    await github.pulls.createComment(params)
+  } catch(err) {
+    core.setFailed(err)
+  }
 
-    const comment = {
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      pull_number: github.context.payload.pull_request.number,
-      body: core.getInput('comment'),
-      commit_id: commit,
-      path: file.filename,
-      side: 'LEFT',
-      position: 1,
-    }
-
-    console.log('comment', comment)
-    try {
-      await octokit.pulls.createComment(comment)
-    } catch(err) {
-      core.setFailed(err)
-    }
-  })
-
-  console.log('comments', comments)
-  core.setOutput('comments', JSON.stringify(comments))
+  // console.log('comments', comments)
+  // core.setOutput('comments', JSON.stringify(comments))
 }
 
 
