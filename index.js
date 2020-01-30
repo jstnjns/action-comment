@@ -7,7 +7,7 @@ const parseHash = (str) => {
   const expression = /\b[0-9a-f]{5,40}\b/g
   const match = str.match(expression)
 
-  match ? match[0] : false
+  return match ? match[0] : false
 }
 
 
