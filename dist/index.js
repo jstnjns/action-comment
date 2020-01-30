@@ -476,8 +476,6 @@ async function run() {
   const fn = new AsyncFunction('require', 'github', 'core', 'context', comment)
   const result = await fn(require, github, core, context)
 
-  console.log(context)
-
   // const files = JSON.parse(core.getInput('files'))
   // const comments = map((files || []), async (file) => {
   //   const commit = parseHash(file.blob_url)
